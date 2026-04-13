@@ -3,6 +3,9 @@ import gateway.APIGateway;
 import gateway.Request;
 import gateway.Response;
 import tracking.RequestTracker;
+import ui.APIGatewayUI;
+
+import javax.swing.SwingUtilities;
 
 import java.util.Scanner;
 
@@ -11,6 +14,15 @@ public class Main {
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
+        if (args.length > 0 && "--cli".equalsIgnoreCase(args[0])) {
+            runConsole();
+            return;
+        }
+
+        SwingUtilities.invokeLater(() -> new APIGatewayUI(apiGateway).setVisible(true));
+    }
+
+    private static void runConsole() {
         printWelcome();
 
         while (true) {
